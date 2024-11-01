@@ -1,11 +1,23 @@
 'use client'
 import React from 'react'
-import { Home, School } from 'lucide-react'
+import { BarChart, Home, List, School } from 'lucide-react'
 import { ISidebarRoutes } from '@/lib/interfaces';
 import SidebarRouteItem from './sidebar-route-item';
+import { usePathname } from 'next/navigation';
 
 const adminRoutes: ISidebarRoutes[] = [];
-const instructorRoutes: ISidebarRoutes[] = [];
+const instructorRoutes: ISidebarRoutes[] = [
+    {
+        icon: List,
+        title: 'Courses',
+        path: '/instructor/courses'
+    },
+    {
+        icon: BarChart,
+        title: 'Analytics',
+        path: '/instructor/analytics'
+    }
+];
 const studentRoutes: ISidebarRoutes[] = [
     {
         icon: Home,
@@ -23,7 +35,9 @@ const studentRoutes: ISidebarRoutes[] = [
 
 
 function SidebarRoutes() {
-    const routes = studentRoutes
+    const pathname = usePathname();
+    const isInstructor = pathname?.startsWith('/instructor');
+    const routes = isInstructor ? instructorRoutes :studentRoutes
     return (
         <div className='flex flex-col w-full'>
             {routes.map((route)=> (
