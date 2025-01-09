@@ -10,6 +10,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
     title: z.string().min(1, {
@@ -29,11 +30,11 @@ function CreateCourse() {
     const { isSubmitting, isValid } = form.formState;
     const onSumbit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await axios.post('/api/course',values);
-            router.push(`instructor/courses/${response.data.id}`)
-
+            const response = await axios.post('/api/courses',values);
+            router.push(`/instructor/courses/${response.data.course_id}`)
+            toast.success("Course Created")
         } catch (error) {
-            console.log("somwthing went wrong")
+            toast.error('Something went wrong')
         }
     }
     return (
