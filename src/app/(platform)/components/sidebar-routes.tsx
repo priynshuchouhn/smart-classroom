@@ -27,7 +27,7 @@ const studentRoutes: ISidebarRoutes[] = [
     {
         icon: School,
         title: 'Classroom',
-        path: '/class'
+        path: '/classroom'
     }
 ];
 

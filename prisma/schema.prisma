@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,36 +8,50 @@ datasource db {
 }
 
 model Course {
-  course_id   String  @id @default(uuid())
+  course_id   String       @id @default(uuid())
   user_id     String
-  title       String  @db.Text
-  description String? @db.Text
-  imageUrl    String? @db.Text
-  isPublished Boolean @default(false)
-
-  subject_id String?
-  subject Subject? @relation(fields: [subject_id] , references: [subject_id])
-
-  attachments Attachment[]
+  title       String
+  description String?
+  imageUrl    String?
+  isPublished Boolean      @default(false)
+  subject_id  String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+  attachments Attachment[]
+  subject     Subject?     @relation(fields: [subject_id], references: [subject_id])
 }
 
 model Subject {
-  subject_id String  @id @default(uuid())
-  name String @unique
-  courses Course[]
+  subject_id String   @id @default(uuid())
+  name       String   @unique
+  courses    Course[]
 }
 
 model Attachment {
-  attachment_id String @id @default(uuid())
+  attachment_id String   @id @default(uuid())
   name          String
-  url           String @db.Text
-
-  course_id String
-  course    Course   @relation(fields: [course_id], references: [course_id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  url           String
+  course_id     String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  course        Course   @relation(fields: [course_id], references: [course_id], onDelete: Cascade)
 
   @@index([course_id])
+}
+
+model Profile {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  name      String
+  imageUrl  String?
+  email     String
+  role      MemberRole @default(STUDENT)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+enum MemberRole {
+  ADMIN
+  TEACHER
+  STUDENT
 }

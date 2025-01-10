@@ -8,18 +8,23 @@ import { db } from '@/lib/db'
 
 async function getData(): Promise<Course[]> {
   const {user_id} = {user_id : "Hello world"}
-  const courses = await db.course.findMany({
-    where:{
-      user_id: user_id
-    },
-    orderBy:{
-      createdAt: "desc"
-    },include: {
-      subject:{}
-    }
-  })
+  try {
+    const courses = await db.course.findMany({
+      where:{
+        user_id: user_id
+      },
+      orderBy:{
+        createdAt: "desc"
+      },include: {
+        subject:{}
+      }
+    })
+    return courses
+  } catch (error) {
+    console.log("[GET_DATA]", error);
+    return [];
+  }
 
-  return courses
 }
 
 async function CoursePage() {
