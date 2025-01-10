@@ -1,11 +1,10 @@
 import React from "react";
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { ArrowLeft, LayoutDashboard, Eye, Video } from "lucide-react";
-import { IconBadge } from "@/components/icon-badge";
+import { IconBadge } from "@/components/ui/icon-badge";
 import { ImageForm } from "./_components/image-form";
 import { MemberRoleForm } from "./_components/member-role-form";
 
@@ -17,11 +16,11 @@ interface ProfileIdPageProps {
 
 const ProfileIdPage: React.FC<ProfileIdPageProps> = async ({ params }) => {
   const { id } = params;
-  const session = await auth();
+  const session = {userId: 'Hello world'};
   const currentUserId = session?.userId;
 
   if (!currentUserId) {
-    return redirect("/teacher/users/");
+    return redirect("/instructor/users/");
   }
 
   const profile = await db.profile.findUnique({
@@ -31,7 +30,7 @@ const ProfileIdPage: React.FC<ProfileIdPageProps> = async ({ params }) => {
   });
 
   if (!profile) {
-    return redirect("/teacher/users/");
+    return redirect("/instructor/users/");
   }
 
   return (

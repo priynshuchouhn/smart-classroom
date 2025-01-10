@@ -1,6 +1,5 @@
 import { Subject, Course } from "@prisma/client";
 
-import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
 import { CourseWithProgressWithSubject } from "@/types";
 

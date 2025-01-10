@@ -10,7 +10,7 @@ import { Profile } from "@prisma/client";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import { FileUpload } from "@/components/file-upload";
+import  FileUpload  from "@/components/ui/file-upload";
 
 interface ImageFormProps {
   initialData: Profile
