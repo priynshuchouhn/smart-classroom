@@ -10,6 +10,9 @@ export async function DELETE(
         const {user_id} = {user_id: "Hello world"}
     
         if(!user_id) return new NextResponse("Unauthorised...", {status: 401});
+        if (!params.courseId || !params.attachmentId) {
+            return new NextResponse("Invalid request parameters", { status: 400 });
+          }
 
         const courseOwner = await db.course.findUnique({
             where: {
