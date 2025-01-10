@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ToastProvider from "@/components/providers/toast-provider";
+import ConfettiProvider from "@/components/providers/confetti-provider";
 
 
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body  className={`antialiased`}>
+        <ConfettiProvider/>
         <ToastProvider/>
         {children}
       </body>

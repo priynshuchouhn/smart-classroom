@@ -7,11 +7,11 @@ export async function DELETE(
 ){
     try {
         //Todo: replace this 
-        const {user_id} = {user_id: "hello world"}
+        const {user_id} = {user_id: "Hello world"}
     
         if(!user_id) return new NextResponse("Unauthorised...", {status: 401});
 
-        const courseOwner = db.course.findUnique({
+        const courseOwner = await db.course.findUnique({
             where: {
                 course_id: params.courseId,
                 user_id: user_id
