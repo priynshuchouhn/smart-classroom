@@ -3,26 +3,21 @@ import { db } from "@/lib/db";
 import { ModuleWithProgressWithSubject } from "@/types";
 
 
-type GetCourses = {
-  user_id: string;
+type GetDashbaordModule = {
+  userId: string;
   title?: string;
   subjectId?: string;
 };
 
-export const getCourses = async ({
-  user_id,
+export const getDashboardModules = async ({
+  userId,
   title,
   subjectId
-}: GetCourses): Promise<ModuleWithProgressWithSubject[]> => {
+}: GetDashbaordModule): Promise<ModuleWithProgressWithSubject[]> => {
   try {
     const modules = await db.module.findMany({
       where: {
         isPublished: true,
-        title: {
-          contains: title,
-          mode: "insensitive",
-        },
-        subjectId,
       },
       include: {
         subject: true,
@@ -31,7 +26,6 @@ export const getCourses = async ({
         createdAt: "desc",
       }
     });
-
     const moduleWithProgress: ModuleWithProgressWithSubject[] = await Promise.all(
       modules.map(async (module) => {
         return {

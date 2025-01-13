@@ -1,6 +1,6 @@
 import { IconBadge } from "@/components/ui/icon-badge";
 import { db } from "@/lib/db";
-import { Files, LayoutDashboard, ListCheck } from "lucide-react";
+import { Files, LayoutDashboard, ListCheck, Notebook } from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
@@ -101,6 +101,16 @@ async function Page({ params }: { params: { moduleId: string } }) {
                         <div className="flex items-center gap-x-2">
                             <IconBadge icon={Files} />
                             <h2 className="text-xl">Resources & Attachments</h2>
+                        </div>
+                        <AttachmentForm
+                        initialData={moduleData}
+                        moduleId={moduleData.moduleId}
+                    />
+                    </div>
+                    <div>
+                        <div className="flex items-center gap-x-2">
+                            <IconBadge icon={Notebook} />
+                            <h2 className="text-xl">Assignment</h2>
                         </div>
                         <AttachmentForm
                         initialData={moduleData}

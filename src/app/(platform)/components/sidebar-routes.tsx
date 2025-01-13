@@ -9,8 +9,8 @@ const adminRoutes: ISidebarRoutes[] = [];
 const instructorRoutes: ISidebarRoutes[] = [
     {
         icon: List,
-        title: 'Courses',
-        path: '/instructor/courses'
+        title: 'Modules',
+        path: '/instructor/modules'
     },
     {
         icon: BarChart,

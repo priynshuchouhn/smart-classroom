@@ -1,20 +1,19 @@
-import { getCourses } from '@/actions/get-courses';
-import { CoursesList } from '@/components/ui/modules-list';
+import { getDashboardModules } from '@/actions/get-courses';
+import { ModulesList } from '@/components/ui/modules-list';
 import React from 'react'
 
 async function Page() {
-    const {user_id } = {user_id: "Hello world"};
-    const courses = await getCourses({
-        user_id,
-      });
-    
-      return (
-        <>
-          <div className="p-6 space-y-4">
-            <CoursesList items={courses} />
-          </div>
-        </>
-      );
+  const { userId } = { userId: "Hello world" };
+  const modules = await getDashboardModules({
+    userId,
+  });
+  return (
+    <>
+      <div className="p-6 space-y-4">
+        <ModulesList items={modules} />
+      </div>
+    </>
+  );
 }
 
 export default Page

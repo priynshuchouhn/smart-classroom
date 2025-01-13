@@ -9,7 +9,7 @@ interface ModuleListProps {
     items: ModuleWithProgressWithSubject[];
 }
 
-export const CoursesList = ({
+export const ModulesList = ({
     items
 }: ModuleListProps) => {
     return (
