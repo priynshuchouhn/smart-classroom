@@ -25,6 +25,7 @@ const CourseLayout = async ({
     },
   });
 
+
   if (!modules) {
     return redirect("/dashboard");
   }

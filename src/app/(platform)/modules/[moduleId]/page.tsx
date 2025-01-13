@@ -6,17 +6,16 @@ const CourseIdPage = async ({
 }: {
   params: { moduleId: string; }
 }) => {
-  const course = await db.module.findUnique({
+  const module = await db.module.findUnique({
     where: {
       moduleId: params.moduleId,
     },
   });
-
-  if (!course) {
+  if (!module) {
     return redirect("/dashboard");
   }
 
-  return redirect(`/modules/${course.moduleId}/content`);
+  return redirect(`/modules/${module.moduleId}/content`);
 }
  
 export default CourseIdPage;

@@ -3,12 +3,10 @@ import { Attachment } from "@prisma/client";
 
 
 interface getModuleProps {
-    user_id: string;
     moduleId: string;
 };
 
 export const getModule = async ({ 
-    user_id, 
     moduleId, 
 }: getModuleProps) => {
     try {

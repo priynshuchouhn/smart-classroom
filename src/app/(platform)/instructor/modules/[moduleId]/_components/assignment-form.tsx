@@ -19,7 +19,8 @@ interface AssignmentFormProps {
 }
 
 const formSchema = z.object({
-    url: z.string().min(1)
+    url: z.string().min(1),
+    name: z.string().min(1)
 })
 function AssignmentForm({ initialData, moduleId }: AssignmentFormProps) {
 
@@ -34,7 +35,7 @@ function AssignmentForm({ initialData, moduleId }: AssignmentFormProps) {
     const { isSubmitting, isValid } = form.formState;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.post(`/api/modules/${moduleId}/attachments`, values);
+            await axios.post(`/api/modules/${moduleId}/assignment`, values);
             toast.success("Module updated");
             toggleEdit();
             router.refresh();
@@ -47,7 +48,7 @@ function AssignmentForm({ initialData, moduleId }: AssignmentFormProps) {
     const onDelete = async (id:string) => {
         try {
             setDeleteingId(id);
-            await axios.delete(`/api/modules/${moduleId}/attachments/${id}`);
+            await axios.delete(`/api/modules/${moduleId}/assignment/${id}`);
             toast.success("Attachment Created");
             router.refresh();
         } catch (error) {
@@ -75,7 +76,7 @@ function AssignmentForm({ initialData, moduleId }: AssignmentFormProps) {
                 <>
                     {initialData.assignments.length === 0 && (
                         <p className='text-sm mt-2 text-slate-500 italic'>
-                            No attachments yet
+                            No Assignments yet
                         </p>
                     )} 
                     {initialData.assignments.length > 0 && (
@@ -106,9 +107,9 @@ function AssignmentForm({ initialData, moduleId }: AssignmentFormProps) {
                <div>
                     <FileUpload 
                         endpoint='moduleAssignment'
-                        onChange={(url)=> {
-                            if(url) {
-                                onSubmit({url: url})
+                        onChange={(data)=> {
+                            if(data) {
+                                onSubmit({url: data.url, name: data.name})
                             }
                         }}
                     />

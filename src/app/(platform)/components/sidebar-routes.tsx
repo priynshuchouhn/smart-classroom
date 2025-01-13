@@ -1,12 +1,17 @@
 'use client'
 import React from 'react'
-import { BarChart, Home, List, School } from 'lucide-react'
+import { BarChart, Home, List, School, Book } from 'lucide-react'
 import { ISidebarRoutes } from '@/lib/interfaces';
 import SidebarRouteItem from './sidebar-route-item';
 import { usePathname } from 'next/navigation';
 
 const adminRoutes: ISidebarRoutes[] = [];
 const instructorRoutes: ISidebarRoutes[] = [
+    {
+        icon: Book,
+        title: 'Subjects',
+        path: '/instructor/subjects'
+    },
     {
         icon: List,
         title: 'Modules',

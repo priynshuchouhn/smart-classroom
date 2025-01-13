@@ -9,12 +9,12 @@ export async function POST(
         const { userId } = { userId: "Hello world" }
         const { url, name } = await req.json();
 
+
         if(!userId) return new NextResponse("Unauthorised", {status: 401});
 
         const courseOwner = await db.module.findUnique({
             where: {
                 moduleId: params.moduleId,
-                userId: userId
             }
         })
 
@@ -22,7 +22,7 @@ export async function POST(
             return new NextResponse("Unauthorised", {status: 401})
         }
 
-        const attachments = await db.attachment.create({
+        const attachments = await db.assignment.create({
           data:{
             url,
             name: name,
@@ -31,7 +31,7 @@ export async function POST(
         })
         return NextResponse.json(attachments)
     } catch (error) {
-        console.log("[MODULE_ID_ATTACHMENTS]", error);
+        console.log("[MODULE_ID_ASSIGNMENT]", error);
         return new NextResponse("Internal Server Error", { status: 500 })
     }
 }

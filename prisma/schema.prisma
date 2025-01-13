@@ -40,6 +40,9 @@ model StudentAttachment {
 model Subject {
   subjectId String   @id @default(uuid())
   name      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   modules   Module[]
 }
 

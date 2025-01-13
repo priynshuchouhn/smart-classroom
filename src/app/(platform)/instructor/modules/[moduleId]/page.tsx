@@ -8,6 +8,8 @@ import SubjectForm from "./_components/subject-form";
 import AttachmentForm from "./_components/attachment-form";
 import Banner from "@/components/ui/banner";
 import Actions from "./_components/action";
+import AssignmentForm from "./_components/assignment-form";
+import StudentSubmissionList from "./_components/student-submission-list";
 async function Page({ params }: { params: { moduleId: string } }) {
     // TODO: Add User Id here, if using clerk
     const { user_id } = { user_id: "Hello world" };
@@ -15,10 +17,20 @@ async function Page({ params }: { params: { moduleId: string } }) {
     const moduleData = await db.module.findUnique({
         where: {
             moduleId: params.moduleId
-        },include:{
-            attachments : {
+        }, include: {
+            attachments: {
                 orderBy: {
                     createdAt: "desc"
+                }
+            },
+            assignments: {
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            },
+            studentSubmissions: {
+                orderBy: {
+                    createdAt: 'desc'
                 }
             }
         }
@@ -43,83 +55,88 @@ async function Page({ params }: { params: { moduleId: string } }) {
     const isCompleted = requiredFields.every(Boolean)
     return (
         <>
-        {!moduleData.isPublished && (
-            <Banner 
-            label={"This module is unpublished. it will not be visible to the students."}
-            />
-        )}
-        <div className="p-6">
-            <div className="flex justify-between items-center">
-                <div className="flex flex-col gap-y-2">
-                    <h1 className="text-2xl font-medium">
-                        Module Setup
-                    </h1>
-                    <span className="text-sm text-slate-700">
-                        Complete all Fields {completionText}
-                    </span>
-                </div>
-                <Actions
-                disabled={!isCompleted}
-                moduleId={params.moduleId}
-                isPublished={moduleData.isPublished}
+            {!moduleData.isPublished && (
+                <Banner
+                    label={"This module is unpublished. it will not be visible to the students."}
                 />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-                <div>
-                    <div className="flex items-center gap-x-2">
-                        <IconBadge icon={LayoutDashboard} />
-                        <h2 className="text-xl">
-                            Customize your course
-                        </h2>
+            )}
+            <div className="p-6">
+                <div className="flex justify-between items-center">
+                    <div className="flex flex-col gap-y-2">
+                        <h1 className="text-2xl font-medium">
+                            Module Setup
+                        </h1>
+                        <span className="text-sm text-slate-700">
+                            Complete all Fields {completionText}
+                        </span>
                     </div>
-                    <TitleForm
-                        initialData={moduleData}
-                        moduleId={moduleData.moduleId}
-                    />
-                    <DescriptionForm
-                        initialData={moduleData}
-                        moduleId={moduleData.moduleId}
-                    />
-                    <SubjectForm
-                        initialData={moduleData}
-                        options={subject.map((subject) => ({
-                            label: subject.name,
-                            value: subject.subjectId
-                        }))}
-                        moduleId={moduleData.moduleId}
+                    <Actions
+                        disabled={!isCompleted}
+                        moduleId={params.moduleId}
+                        isPublished={moduleData.isPublished}
                     />
                 </div>
-                <div className="space-y-6">
-                    {/* <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+                    <div>
+                        <div className="flex items-center gap-x-2">
+                            <IconBadge icon={LayoutDashboard} />
+                            <h2 className="text-xl">
+                                Customize your module
+                            </h2>
+                        </div>
+                        <TitleForm
+                            initialData={moduleData}
+                            moduleId={moduleData.moduleId}
+                        />
+                        <DescriptionForm
+                            initialData={moduleData}
+                            moduleId={moduleData.moduleId}
+                        />
+                        <SubjectForm
+                            initialData={moduleData}
+                            options={subject.map((subject) => ({
+                                label: subject.name,
+                                value: subject.subjectId
+                            }))}
+                            moduleId={moduleData.moduleId}
+                        />
+                    </div>
+                    <div className="space-y-6">
+                        {/* <div>
                         <div className="flex items-center gap-x-2">
                             <IconBadge icon={ListCheck} />
                             <h2 className="text-xl">Module Chapter</h2>
                         </div>
                         <div> Todo: Chapters</div>
                     </div> */}
-                    <div>
-                        <div className="flex items-center gap-x-2">
-                            <IconBadge icon={Files} />
-                            <h2 className="text-xl">Resources & Attachments</h2>
+                        <div>
+                            <div className="flex items-center gap-x-2">
+                                <IconBadge icon={Files} />
+                                <h2 className="text-xl">Resources & Attachments</h2>
+                            </div>
+                            <AttachmentForm
+                                initialData={moduleData}
+                                moduleId={moduleData.moduleId}
+                            />
                         </div>
-                        <AttachmentForm
-                        initialData={moduleData}
-                        moduleId={moduleData.moduleId}
-                    />
-                    </div>
-                    <div>
-                        <div className="flex items-center gap-x-2">
-                            <IconBadge icon={Notebook} />
-                            <h2 className="text-xl">Assignment</h2>
+                        <div>
+                            <div className="flex items-center gap-x-2">
+                                <IconBadge icon={Notebook} />
+                                <h2 className="text-xl">Assignment</h2>
+                            </div>
+                            <AssignmentForm
+                                initialData={moduleData}
+                                moduleId={moduleData.moduleId}
+                            />
+                            {
+                                moduleData.assignments.length > 0 && (
+                                    <StudentSubmissionList />
+                                )
+                            }
                         </div>
-                        <AttachmentForm
-                        initialData={moduleData}
-                        moduleId={moduleData.moduleId}
-                    />
                     </div>
                 </div>
             </div>
-        </div>
         </>
     )
 }
