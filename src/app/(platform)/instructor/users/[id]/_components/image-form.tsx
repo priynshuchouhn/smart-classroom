@@ -86,9 +86,9 @@ export const ImageForm = ({
         <div>
           <FileUpload
             endpoint="profileImage"
-            onChange={(url) => {
-              if (url) {
-                onSubmit({ imageUrl: url });
+            onChange={(data) => {
+              if (data) {
+                onSubmit({ imageUrl: data.url });
               }
             }}
           />

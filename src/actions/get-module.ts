@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Attachment } from "@prisma/client";
+import { Assignment, Attachment } from "@prisma/client";
 
 
 interface getModuleProps {
@@ -25,16 +25,23 @@ export const getModule = async ({
         } 
 
         let attachments: Attachment[] = [];
+        let assignment: Assignment[] = [];
 
         attachments = await db.attachment.findMany({
             where: {
                 moduleId: moduleId,
             },
         });
+        assignment = await db.assignment.findMany({
+            where: {
+                moduleId: moduleId,
+            },
+        })
         return {
            
             moduleData,
             attachments,
+            assignment
         };
 
     } catch (error) {
@@ -42,6 +49,7 @@ export const getModule = async ({
         return {
             moduleData: null,
             attachments: null,
+            assignment: null,
             userProgress: null,
         }
     }

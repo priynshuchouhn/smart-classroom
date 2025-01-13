@@ -15,6 +15,7 @@ const ChapterIdPage = async ({
   const {
     moduleData,
     attachments,
+    assignment,
     userProgress,
   } = await getModule({
     moduleId: params.moduleId,
@@ -44,16 +45,38 @@ const ChapterIdPage = async ({
         <>
           <Separator />
           <div className="p-4">
+          <h4 className="mb-3 font-semibold">Module Resources</h4>
             {attachments.map((attachment) => (
               <a
                 href={attachment.url}
                 target="_blank"
                 key={attachment.attachmentId}
-                className='flex items-center p-3 w-full bg-sky-200 dark:bg-sky-800 text-sky-700 dark:text-sky-300 hover:underline'
+                className='flex items-center p-3 w-full rounded-md bg-sky-200 dark:bg-sky-800 text-sky-700 dark:text-sky-300 hover:underline'
               >
                 <File className="mr-2" />
                 <p className="line-clamp-1">
                   {attachment.name}
+                </p>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+      {!!assignment.length && (
+        <>
+          <Separator />
+          <div className="p-4">
+          <h4 className="mb-3 font-semibold">Module Assignments</h4>
+            {assignment.map((item) => (
+              <a
+                href={item.url}
+                target="_blank"
+                key={item.assignmentId}
+                className='flex items-center p-3 w-full bg-green-200 dark:bg-sky-800 rounded-md text-green-700 dark:text-sky-300 hover:underline'
+              >
+                <File className="mr-2" />
+                <p className="line-clamp-1">
+                  {item.name}
                 </p>
               </a>
             ))}
