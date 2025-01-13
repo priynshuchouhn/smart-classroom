@@ -31,7 +31,7 @@ function CreateModule() {
     const onSumbit = async (values: z.infer<typeof formSchema>) => {
         try {
             const response = await axios.post('/api/modules',values);
-            router.push(`/instructor/modules/${response.data.module}`)
+            router.push(`/instructor/modules/${response.data.moduleId}`)
             toast.success("Module Created")
         } catch (error) {
             toast.error('Something went wrong')
@@ -41,7 +41,7 @@ function CreateModule() {
         <div className='max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6'>
             <div>
                 <h1 className='text-2xl'>
-                    Name of your module
+                    Name of your Module
                 </h1>
                 <p className='text-sm text-slate-600'>What would you like to name the your module? Don&apos;t worry, you can change it later</p>
                 <Form {...form}>

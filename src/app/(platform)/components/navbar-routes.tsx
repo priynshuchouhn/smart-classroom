@@ -21,7 +21,7 @@ function NavbarRoutes() {
           Exit
         </Button>
         </Link>
-      ): <Link href="/instructor/courses">
+      ): <Link href="/instructor/modules">
         <Button size={'sm'} variant={'ghost'}>
           Instructor Mode
         </Button>
