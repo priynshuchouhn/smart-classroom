@@ -1,12 +1,11 @@
 "use client"
 
-import { Course } from "@prisma/client"
+import { Module } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react"
 import Link from "next/link";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { Profile } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 

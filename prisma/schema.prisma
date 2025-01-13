@@ -7,36 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Course {
-  course_id   String       @id @default(uuid())
-  user_id     String
+model Module {
+  moduleId   String       @id @default(uuid())
+  userId     String
   title       String
   description String?
   imageUrl    String?
   isPublished Boolean      @default(false)
-  subject_id  String?
+  subjectId  String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   attachments Attachment[]
-  subject     Subject?     @relation(fields: [subject_id], references: [subject_id])
+  subject     Subject?     @relation(fields: [subjectId], references: [subjectId])
 }
 
 model Subject {
-  subject_id String   @id @default(uuid())
+  subjectId String   @id @default(uuid())
   name       String   @unique
-  courses    Course[]
+  modules    Module[]
 }
 
 model Attachment {
-  attachment_id String   @id @default(uuid())
+  attachmentId String   @id @default(uuid())
   name          String
   url           String
-  course_id     String
+  moduleId     String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  course        Course   @relation(fields: [course_id], references: [course_id], onDelete: Cascade)
+  module        Module   @relation(fields: [moduleId], references: [moduleId], onDelete: Cascade)
 
-  @@index([course_id])
+  @@index([moduleId])
 }
 
 model Profile {

@@ -1,6 +1,6 @@
-import { Subject, Course, Profile } from "@prisma/client";
+import { Subject, Module, Profile } from "@prisma/client";
 
-export type CourseWithProgressWithSubject = Course & {
+export type ModuleWithProgressWithSubject = Module & {
     subject: Subject | null;
 };
 

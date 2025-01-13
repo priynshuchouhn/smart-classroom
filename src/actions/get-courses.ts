@@ -1,29 +1,28 @@
-import { Subject, Course } from "@prisma/client";
 
 import { db } from "@/lib/db";
-import { CourseWithProgressWithSubject } from "@/types";
+import { ModuleWithProgressWithSubject } from "@/types";
 
 
 type GetCourses = {
   user_id: string;
   title?: string;
-  subject_id?: string;
+  subjectId?: string;
 };
 
 export const getCourses = async ({
   user_id,
   title,
-  subject_id
-}: GetCourses): Promise<CourseWithProgressWithSubject[]> => {
+  subjectId
+}: GetCourses): Promise<ModuleWithProgressWithSubject[]> => {
   try {
-    const courses = await db.course.findMany({
+    const modules = await db.module.findMany({
       where: {
         isPublished: true,
         title: {
-                    contains: title,
-                    mode: "insensitive",
+          contains: title,
+          mode: "insensitive",
         },
-        subject_id,
+        subjectId,
       },
       include: {
         subject: true,
@@ -32,18 +31,18 @@ export const getCourses = async ({
         createdAt: "desc",
       }
     });
-    
-    const coursesWithProgress: CourseWithProgressWithSubject[] = await Promise.all(
-      courses.map(async (course) => {
+
+    const moduleWithProgress: ModuleWithProgressWithSubject[] = await Promise.all(
+      modules.map(async (module) => {
         return {
-          ...course,
+          ...module,
         };
       })
     );
 
-    return coursesWithProgress;
+    return moduleWithProgress;
   } catch (error) {
-    console.log("[GET_COURSES]", error);
+    console.log("[GET_MODULE]", error);
     return [];
   }
 }

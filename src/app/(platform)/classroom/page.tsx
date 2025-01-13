@@ -1,5 +1,5 @@
 import { getCourses } from '@/actions/get-courses';
-import { CoursesList } from '@/components/ui/courses-list';
+import { CoursesList } from '@/components/ui/modules-list';
 import React from 'react'
 
 async function Page() {
