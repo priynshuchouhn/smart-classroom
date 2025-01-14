@@ -130,7 +130,10 @@ async function Page({ params }: { params: { moduleId: string } }) {
                             />
                             {
                                 moduleData.assignments.length > 0 && (
-                                    <StudentSubmissionList />
+                                    <StudentSubmissionList 
+                                    moduleId={moduleData.moduleId}
+                                    studentSubmissions={moduleData.studentSubmissions}
+                                    />
                                 )
                             }
                         </div>

@@ -3,10 +3,11 @@ import Link from 'next/link'
 import React from 'react'
 import { DataTable } from './_components/data-table'
 import { columns } from './_components/columns'
-import { Subject } from '@prisma/client'
+import { Module, Subject } from '@prisma/client'
 import { db } from '@/lib/db'
 
-async function getData(): Promise<Subject[]> {
+
+async function getData(): Promise<any> {
     const { userId } = { userId: "Hello world" }
     try {
         const subjects = await db.subject.findMany({

@@ -4,14 +4,15 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenuContent } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
-import { Subject } from "@prisma/client"
+import { Module, Subject } from "@prisma/client"
 import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal, Pencil } from "lucide-react"
 import Link from "next/link"
 
+type SubjectWithModules = Subject & {modules: Module[]}
 
-export const columns: ColumnDef<Subject>[] = [
+export const columns: ColumnDef<SubjectWithModules>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -19,6 +20,11 @@ export const columns: ColumnDef<Subject>[] = [
   {
     accessorKey: "modules",
     header: "Modules",
+    cell: ({row}) => {
+      const { modules } = row.original
+
+      return modules.length
+    }
   },
   {
     id: "actions",

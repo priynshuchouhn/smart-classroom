@@ -18,6 +18,9 @@ export const ourFileRouter = {
   moduleAssignment: f(["text", "pdf"]).
   middleware(()=> handleAuth()).
   onUploadComplete(()=>{}),
+  studentSubmission: f(["text", "pdf", "image"]).
+  middleware(()=> handleAuth()).
+  onUploadComplete(()=>{}),
 
 } satisfies FileRouter;
 

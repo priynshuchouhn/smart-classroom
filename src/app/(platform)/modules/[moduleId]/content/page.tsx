@@ -4,21 +4,25 @@ import { File } from "lucide-react";
 import { getModule } from "@/actions/get-module";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/ui/preview";
+import { cn } from "@/lib/utils";
+import StudentSubmissionForm from "./_components/student-submission-form";
 
 
-const ChapterIdPage = async ({
+const ModuleIdPage = async ({
   params
 }: {
   params: { moduleId: string; }
 }) => {
-  
+  const {userId} = {userId: "Hello world"}
   const {
     moduleData,
     attachments,
     assignment,
+    studentSubmission,
     userProgress,
   } = await getModule({
     moduleId: params.moduleId,
+    userId
   });
   if (!moduleData) {
     return redirect("/dashboard")
@@ -41,11 +45,11 @@ const ChapterIdPage = async ({
           </div>
         </>
       )}
-      {!!attachments.length && (
-        <>
-          <Separator />
-          <div className="p-4">
-          <h4 className="mb-3 font-semibold">Module Resources</h4>
+      <Separator />
+      <div className={cn("grid grid-cols-1", `${attachments.length > 0 ? 'md:grid-cols-3' : 'md:grid-cols-1'}`)}>
+        {!!attachments.length && (
+          <div className="p-4 col-span-2">
+            <h4 className="mb-3 font-semibold">Module Resources</h4>
             {attachments.map((attachment) => (
               <a
                 href={attachment.url}
@@ -60,31 +64,37 @@ const ChapterIdPage = async ({
               </a>
             ))}
           </div>
-        </>
-      )}
-      {!!assignment.length && (
-        <>
-          <Separator />
-          <div className="p-4">
-          <h4 className="mb-3 font-semibold">Module Assignments</h4>
-            {assignment.map((item) => (
-              <a
-                href={item.url}
-                target="_blank"
-                key={item.assignmentId}
-                className='flex items-center p-3 w-full bg-green-200 dark:bg-sky-800 rounded-md text-green-700 dark:text-sky-300 hover:underline'
-              >
-                <File className="mr-2" />
-                <p className="line-clamp-1">
-                  {item.name}
-                </p>
-              </a>
-            ))}
+        )}
+        {!!assignment.length && (
+          <div>
+            <div className="p-4">
+              <h4 className="mb-3 font-semibold">Module Assignments</h4>
+              {assignment.map((item) => (
+                <a
+                  href={item.url}
+                  target="_blank"
+                  key={item.assignmentId}
+                  className='flex items-center p-3 w-full bg-green-200 dark:bg-sky-800 rounded-md text-green-700 dark:text-sky-300 hover:underline'
+                >
+                  <File className="mr-2" />
+                  <p className="line-clamp-1">
+                    {item.name}
+                  </p>
+                </a>
+              ))}
+            </div>
+            <div className="p-4">
+              <h4 className="mb-3 font-semibold">Module Submission</h4>
+              <StudentSubmissionForm
+              moduleId={moduleData.moduleId}
+              initialData={studentSubmission}
+              />
+            </div>
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 }
 
-export default ChapterIdPage;
+export default ModuleIdPage;
