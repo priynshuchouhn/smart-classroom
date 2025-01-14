@@ -22,7 +22,6 @@ async function Page({ params }: { params: { subjectId: string } }) {
         }
     })
     if (!subject) return redirect('/instructor/subjects');
-    console.log(subject.modules);
     const requiredFields = [
         subject.name,
         // course.description,

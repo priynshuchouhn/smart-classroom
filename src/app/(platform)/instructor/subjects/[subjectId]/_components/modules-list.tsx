@@ -1,5 +1,6 @@
 import { Module } from '@prisma/client'
-import { File } from 'lucide-react'
+import { Eye, File, Loader2 } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 interface ModuleListProps {
@@ -10,7 +11,7 @@ function ModuleList({
 }: ModuleListProps) {
     return (
         <div className='mt-6 border bg-slate-100 rounded-md p-4'>
-            <div className='font-medium flex items-center justify-between' >
+            <div className='font-medium flex items-center justify-between mb-3' >
                 Module Details
             </div>
             <>
@@ -27,10 +28,10 @@ function ModuleList({
                                 <p className='text-xs line-clamp-1'>
                                     {module.title}
                                 </p>
+                                <Link href={`/instructor/modules/${module.moduleId}`} className='ml-auto'>
+                                    <Eye className='h-5 w-5 cursor-pointer' />
+                                </Link>
                                 {/* {deletingId === attachment.attachmentId && (
-                                    <div className='ml-auto'>
-                                        <Loader2 className='h-4 w-4 animate-spin' />
-                                    </div>
                                 )}
                                 {deletingId !== attachment.attachmentId && (
                                     <button className='ml-auto hover:opacity-75 transition' onClick={() => onDelete(attachment.attachmentId)}>

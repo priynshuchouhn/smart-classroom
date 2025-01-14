@@ -49,7 +49,7 @@ function AssignmentForm({ initialData, moduleId }: AssignmentFormProps) {
         try {
             setDeleteingId(id);
             await axios.delete(`/api/modules/${moduleId}/assignment/${id}`);
-            toast.success("Attachment Created");
+            toast.success("Assignment Deleted");
             router.refresh();
         } catch (error) {
             toast.error("Something went wrong...")

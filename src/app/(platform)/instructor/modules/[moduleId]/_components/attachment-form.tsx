@@ -49,7 +49,7 @@ function AttachmentForm({ initialData, moduleId }: AttachmentFormProps) {
         try {
             setDeleteingId(id);
             await axios.delete(`/api/modules/${moduleId}/attachments/${id}`);
-            toast.success("Attachment Created");
+            toast.success("Attachment Deleted");
             router.refresh();
         } catch (error) {
             toast.error("Something went wrong...")

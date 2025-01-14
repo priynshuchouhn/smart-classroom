@@ -30,11 +30,11 @@ function Actions({
 
             if(isPublished){
                 await axios.patch(`/api/modules/${moduleId}/unpublish`);
-                toast.success('Course unpublished');
+                toast.success('Module unpublished');
                 router.refresh()
             }else{
                 await axios.patch(`/api/modules/${moduleId}/publish`);
-                toast.success('Course published');
+                toast.success('Module published');
                 confetti.onOpen();
                 router.refresh()
             }
@@ -49,7 +49,7 @@ function Actions({
         try {
             setIsLoading(true);
             await axios.delete(`/api/modules/${moduleId}/`);
-            toast.success("Course deleted");
+            toast.success("Module deleted");
             router.refresh()
             router.push(`/instructor/modules`);
         } catch (error) {

@@ -49,7 +49,6 @@ function SubjectForm({ initialData, options, moduleId }: SubjectFormProps) {
     const router = useRouter();
     const { isSubmitting, isValid } = form.formState;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
         try {
             await axios.patch(`/api/modules/${moduleId}`, values);
             toast.success("Module updated");

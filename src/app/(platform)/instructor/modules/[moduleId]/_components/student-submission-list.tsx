@@ -17,6 +17,11 @@ function StudentSubmissionList({
                 Student Submissions
                 {studentSubmissions.length > 0 && (<Link className='text-sm text-sky-700' href={`${moduleId}/submissions`}>View All Submission</Link>)}
             </div>
+            {studentSubmissions.length == 0 && (
+                <div className='mt-3'>
+                    <p className='italic text-sm text-muted-foreground'>No Submissions yet</p>
+                </div>
+            )}
             {studentSubmissions.length > 0 && (
                 <div className='mt-3'>
                    <b>{studentSubmissions.length}</b> student
