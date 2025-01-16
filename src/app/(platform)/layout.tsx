@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from './components/sidebar'
 import Header from './components/header';
+import ClassroomClock from './components/clock';
 
 function DashboardLayout({ children }: Readonly<{
   children: React.ReactNode;

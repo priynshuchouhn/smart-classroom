@@ -32,8 +32,6 @@ export async function GET(req: Request) {
         if (!userId) {
             return new Response(JSON.stringify({ error: "UserId is required" }), { status: 400 });
         }
-
-        console.log("[Module Fetch Function Called]")
         const modules = await db.module.findMany({
             where: {
                 isPublished: true,

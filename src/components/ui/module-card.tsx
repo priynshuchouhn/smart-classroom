@@ -8,12 +8,14 @@ interface ModuleCardProps {
   id: string;
   title: string;
   subject: string;
+  date: string;
 };
 
 export const ModuleCard = ({
   id,
   title,
-  subject
+  subject,
+  date
 }: ModuleCardProps) => {
   return (
     (<Link href={`/modules/${id}`}>
@@ -36,6 +38,7 @@ export const ModuleCard = ({
           <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
             <div className="flex items-center gap-x-1 text-slate-500">
               <IconBadge size="sm" icon={BookOpen} />
+              {date}
             </div>
           </div>
         </div>

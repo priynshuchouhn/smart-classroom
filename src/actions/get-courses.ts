@@ -1,6 +1,6 @@
-
 import { db } from "@/lib/db";
 import { ModuleWithProgressWithSubject } from "@/types";
+import axios from "axios";
 
 
 type GetDashbaordModule = {
@@ -15,7 +15,6 @@ export const getDashboardModules = async ({
   subjectId
 }: GetDashbaordModule): Promise<ModuleWithProgressWithSubject[]> => {
   try {
-    console.log("[Module Fetch Function Called]")
     const modules = await db.module.findMany({
       where: {
         isPublished: true,
@@ -34,8 +33,8 @@ export const getDashboardModules = async ({
         };
       })
     );
-
-    return moduleWithProgress;
+    console.log(modules);
+    return moduleWithProgress
   } catch (error) {
     console.log("[GET_MODULE]", error);
     return [];
