@@ -3,6 +3,7 @@ import axios from 'axios';
 
 async function Page() {
   // const { userId } = { userId: "Hello world" };
+  console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/modules`);
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/modules`, {
     params: {
       userId: "Hello world",
