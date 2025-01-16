@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ToastProvider from "@/components/providers/toast-provider";
 import ConfettiProvider from "@/components/providers/confetti-provider";
+import Script from "next/script";
 
 
 
@@ -17,6 +18,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      </head>
+        {/* Google Tag Manager Script */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-M0Z4QHZ2ED"
+          async
+        />
+        <Script
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-M0Z4QHZ2ED');
+            `,
+          }}
+        />
       <body  className={`antialiased`}>
         <ConfettiProvider/>
         <ToastProvider/>
