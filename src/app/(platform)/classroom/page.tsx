@@ -7,6 +7,7 @@ async function Page() {
   const modules = await getDashboardModules({
     userId,
   });
+  console.log(modules)
   return (
     <>
       <div className="p-6 space-y-4">

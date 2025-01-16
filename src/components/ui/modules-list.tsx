@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { Subject, Module } from "@prisma/client";
 
 import { ModuleCard } from "@/components/ui/module-card";
 

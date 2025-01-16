@@ -15,6 +15,7 @@ export const getDashboardModules = async ({
   subjectId
 }: GetDashbaordModule): Promise<ModuleWithProgressWithSubject[]> => {
   try {
+    console.log("[Module Fetch Function Called]")
     const modules = await db.module.findMany({
       where: {
         isPublished: true,
