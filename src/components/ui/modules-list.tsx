@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-
 import { ModuleCard } from "@/components/ui/module-card";
 
 import { ModuleWithProgressWithSubject } from "@/types";
