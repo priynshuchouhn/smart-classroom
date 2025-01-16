@@ -20,26 +20,28 @@ export default function RootLayout({
     <html lang="en">
       <head>
       </head>
-        {/* Google Tag Manager Script */}
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-M0Z4QHZ2ED"
-          async
-        />
-        <Script
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+      {/* Google Tag Manager Script */}
+      <Script
+        id="google-tag-manager-cdn"
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-M0Z4QHZ2ED"
+        async
+      />
+      <Script
+        id="google-tag-manager-code"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-M0Z4QHZ2ED');
             `,
-          }}
-        />
-      <body  className={`antialiased`}>
-        <ConfettiProvider/>
-        <ToastProvider/>
+        }}
+      />
+      <body className={`antialiased`}>
+        <ConfettiProvider />
+        <ToastProvider />
         {children}
       </body>
     </html>
